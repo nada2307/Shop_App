@@ -5,6 +5,7 @@ import 'package:shop_app/layout/ShopLayout.dart';
 import 'package:shop_app/layout/cubit/states.dart';
 import 'package:shop_app/models/ChangeFavoritesModel.dart';
 import 'package:shop_app/models/categoriesModel.dart';
+import 'package:shop_app/models/categoryDetailModel.dart';
 import 'package:shop_app/models/favoritesModel.dart';
 import 'package:shop_app/models/homeModel.dart';
 import 'package:shop_app/models/loginModel.dart';
@@ -22,6 +23,8 @@ class ShopAppCubit extends Cubit<ShopAppStates> {
   static ShopAppCubit get(context) => BlocProvider.of(context);
 
   int currentIndex = 0;
+
+
 
   List<BottomNavigationBarItem> bottomItems = [
     BottomNavigationBarItem(
@@ -89,17 +92,6 @@ class ShopAppCubit extends Cubit<ShopAppStates> {
     });
   }
 
-  // Color favColor = Colors.grey;
-  // bool isFavorite = false;
-  // IconData favIcon = Icons.favorite_border_outlined;
-
-  // void changeFav() {
-  //   isFavorite = !isFavorite;
-  //   favIcon = isFavorite ? Icons.favorite : Icons.favorite_border_outlined;
-  //   favColor = isFavorite ? Colors.red : Colors.grey;
-  //   emit(ChangeFavState());
-  // }
-
   ChangeFavoriteModel? changeFavoriteModel;
 
   void changeFav(int productId) {
@@ -141,6 +133,22 @@ class ShopAppCubit extends Cubit<ShopAppStates> {
     });
   }
 
+  CategoryDetailModel? categoryDetails;
+
+  void getCategoryDetail(int id) {
+    DioHelper.getData(url: "categories/$id",
+        query: {
+          'category_id': '$id',
+        }
+    ).then((value) {
+      categoryDetails = CategoryDetailModel.fromJson(value.data);
+
+      emit(GetCategoriesDetailsSuccessState());
+    }).catchError((error) {
+      print(error.toString());
+      emit(GetCategoriesDetailsErrorState(error));
+    });
+  }
   FavoriteModel? favoritesModel;
 
   void getFavorites() {
@@ -159,7 +167,7 @@ class ShopAppCubit extends Cubit<ShopAppStates> {
       emit(GetFavoritesErrorState(error));
     });
   }
-
+////
   LoginModel? userModel;
 
   void getUserData() {

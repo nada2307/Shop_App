@@ -32,7 +32,8 @@ class ProductsScreen extends StatelessWidget {
           condition: cubit.homeModel != null && cubit.categories != null,
           builder: (context) =>
               productsBuilder(cubit.homeModel, context, cubit.categories),
-          fallback: (context) => const Center(child:  CircularProgressIndicator()),
+          fallback: (context) =>
+              const Center(child: CircularProgressIndicator()),
         );
       },
     );
@@ -145,9 +146,8 @@ Widget productsItem(ProductsModel model, context) => Container(
                 width: double.infinity,
                 height: 200,
               ),
-              if (model.discount != 0)
-                positionedFill("Sale"),
-               /* Container(
+              if (model.discount != 0) positionedFill("Sale"),
+              /* Container(
                   color: Colors.red,
                   padding: EdgeInsets.symmetric(horizontal: 7.0),
                   child: Text(

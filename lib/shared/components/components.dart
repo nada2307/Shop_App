@@ -340,18 +340,18 @@ Widget buildProductItem(context,  model,{bool isOldPrice = true}) => Padding(
               height: 100.0,
               // fit: BoxFit.cover,
             ),
-            if (model.discount != 0 && isOldPrice )
-              Container(
+            if (model.discount != 0 && isOldPrice ) positionedFill("Sale"),
+              /*Container(
                 color: Colors.red,
                 padding: EdgeInsets.symmetric(horizontal: 7.0),
-                child: Text(
+                child: const Text(
                   'DISCOUNT',
                   style: TextStyle(
                     fontSize: 10.0,
                     color: Colors.white,
                   ),
                 ),
-              ),
+              ),*/
           ],
         ),
         SizedBox(
